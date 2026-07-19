@@ -1,3 +1,14 @@
+<!-- TITLE AND TYPING ANIMATION -->
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=End-to-End%20Servicing%20Agent&fontSize=50&animation=fadeIn&fontAlignY=38" />
+</div>
+
+<div align="center">
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&pause=1000&color=3ECF8E&center=true&vCenter=true&width=600&lines=Intelligent+Fintech+Automation;LangGraph-Powered+Orchestration;Zero-Latency+Policy+Engine;Immutable+Audit+Trails" alt="Typing SVG" />
+  </a>
+</div>
+
 <div align="center">
   <img src="https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white" />
   <img src="https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi" />
@@ -5,38 +16,54 @@
   <img src="https://img.shields.io/badge/LangGraph-FF4F00?style=for-the-badge&logo=langchain&logoColor=white" />
 </div>
 
-<h1 align="center">End-to-End Servicing Agent</h1>
+<br/>
 
-<p align="center">
-  A fully functional, LangGraph-powered customer service chatbot for financial institutions.
-</p>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="80%">
+</div>
 
-This project implements a **"Chain Breaker" architecture**: an intelligent agent that uses zero-latency keyword routing + Groq LLM intent classification, feeds into a deterministic policy engine, and short-circuits to an escalated human handoff packet the moment any policy threshold fails.
+## 🌟 Vision & Architecture
 
-## ✨ Features
+Welcome to the future of **Financial Customer Servicing**. This project implements a **"Chain Breaker" architecture**: an intelligent AI agent that blends zero-latency keyword routing, Groq LLM intent classification, and a deterministic policy engine to safely automate banking requests.
 
-- **🛡️ Secure Authentication:** Full Signup and Login flows integrated with Supabase Auth.
-- **💅 Hybrid Fintech UI:** Beautiful, responsive UI built with Next.js, Tailwind, and Framer Motion micro-animations.
-- **🤖 Auditable AI:** LangGraph orchestrates the flow. A pure deterministic policy engine ensures no LLM hallucinations in rule checks.
-- **📜 Hash-Chained Audit Trail:** Every node transition in the graph is immutably logged with SHA-256 chaining.
-- **🚀 Escalation Handoff:** Clean, concise escalation summary generation with a detailed UI receipt showing exactly what passed/failed for human agents.
+If any regulatory or business policy threshold fails, the graph short-circuits instantly—generating a comprehensive, hash-chained escalation handoff for human agents. **Zero hallucinations, pure compliance.**
 
----
+<div align="center">
+  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="80%">
+</div>
 
-## 🚀 Setup Instructions
+## 🚀 Hyper-Animated Feature Set
 
-### 1. Prerequisites
+| Feature | Description | Tech Stack |
+| :--- | :--- | :--- |
+| **🛡️ Secure Auth** | Full Signup/Login flows integrated with database triggers | `<Supabase JWTs>` |
+| **💅 Hybrid UI** | Framer Motion micro-animations & Tailwind styling | `<Next.js 15>` |
+| **🤖 Auditable AI** | LangGraph orchestration with deterministic policies | `<FastAPI + LangChain>` |
+| **📜 Hash-Chained** | Every graph node transition is immutably logged via SHA-256 | `<PostgreSQL>` |
+| **🚀 Escalation** | Auto-generates detailed receipts of what passed/failed | `<Groq LLMs>` |
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="80%">
+</div>
+
+## 🛠️ Lightning Fast Setup
+
+<details>
+<summary><b>🔥 1. Prerequisites (Click to Expand)</b></summary>
+<br/>
+
 - Python 3.10+
 - Node.js 18+
 - [Groq API Key](https://console.groq.com/keys)
 - [Supabase Project](https://supabase.com) (URL, Anon Key, and Service Role Key)
 
-### 2. Database Setup (Supabase)
-Run the following SQL in your Supabase SQL Editor to set up the authentication trigger and the banking database:
+</details>
 
 <details>
-<summary>Click here to expand the SQL Script</summary>
+<summary><b>💾 2. Supabase Trigger (Click to Expand)</b></summary>
+<br/>
 
+Run the following SQL in your Supabase SQL Editor:
 ```sql
 -- 1. Create the bank customers table
 create table public.bank_customers (
@@ -106,69 +133,59 @@ create trigger on_auth_user_created
 ```
 </details>
 
+<details>
+<summary><b>⚙️ 3. Backend (FastAPI)</b></summary>
+<br/>
 
-### 3. Backend Setup (FastAPI + LangGraph)
-Navigate to the `backend` directory and set up your Python environment:
 ```bash
 cd backend
 python -m venv .venv
-# On Windows: .venv\Scripts\activate
-# On Mac/Linux: source .venv/bin/activate
+source .venv/bin/activate
 pip install -r requirements.txt
-```
-
-Create a `.env` file from the example:
-```bash
 cp .env.example .env
 ```
-Add your real keys to `backend/.env`:
-```env
-GROQ_API_KEY=your_groq_api_key_here
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
-```
-Start the backend API:
+Add your real keys to `backend/.env`. Then start the API:
 ```bash
 python -m uvicorn app.main:app --reload --port 8000
 ```
+</details>
 
-### 4. Frontend Setup (Next.js)
-Navigate to the `frontend` directory:
+<details>
+<summary><b>🎨 4. Frontend (Next.js)</b></summary>
+<br/>
+
 ```bash
 cd frontend
 npm install
-```
-
-Create a `.env.local` file from the example:
-```bash
 cp .env.local.example .env.local
-```
-Start the frontend development server:
-```bash
 npm run dev
 ```
+</details>
 
-The application is now running at **[http://localhost:3000](http://localhost:3000)**! 🎉
+<div align="center">
+  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="80%">
+</div>
 
----
+## 🎮 Interactive Demos
 
-## 🎮 How to Test the Agent
+> Open **[http://localhost:3000](http://localhost:3000)** to begin testing.
 
-1. Open `http://localhost:3000` in your browser.
-2. Click **"Log In / Sign Up"** and create a new account using any email/password.
-3. Upon signing up, the Supabase trigger automatically creates a `platinum` tier mock bank account for you.
-4. You will be redirected to the chat interface.
+### ✅ The "Happy Path" (Instant Auto-Approval)
+1. Log in.
+2. Type: **"Waive my annual fee"**
+3. *Magic:* The agent pulls your ID from the session, verifies your `platinum` tier in the database, ensures you have `0` waivers used, and approves it seamlessly.
 
-### ✅ Test: The "Happy Path" (Auto-Approval)
-- **You:** *"Waive my annual fee"*
-- **Agent:** Because you are logged in, the agent looks up your ID, recognizes your Platinum tier, sees you have 0 waivers used this year, and **Auto-Approves** the request instantly without asking for your card number!
+### 🛑 The "Escalation" Path (Chain Breaker)
+1. Type: **"Can you lower my interest rate?"**
+2. *Magic:* LangGraph detects this is out of scope. The policy chain is instantly severed, and a pristine Handoff Card is generated for the human servicing team.
 
-### 🛑 Test: The "Escalation" Path
-- **You:** *"Can you lower my interest rate?"*
-- **Agent:** Immediately recognizes this is out of scope (or low confidence), breaks the LangGraph chain, and generates a **Handoff Summary** for a human agent.
+### 🔍 The Cryptographic Audit Trail
+Click the **"Audit"** button in the chat. A ledger will slide out displaying the SHA-256 hash chain of every LangGraph node execution. Click **Verify Chain Integrity** to cryptographically prove no tampering occurred.
 
-### 🔍 Test: The Audit Trail
-Click the **"Audit"** button in the top right of the chat at any time. It slides out a ledger showing the cryptographic hash chain of the current session's LangGraph execution. Click "Verify Chain Integrity" to recompute hashes and prove no tampering occurred.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="80%">
+</div>
 
----
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" />
+</div>
