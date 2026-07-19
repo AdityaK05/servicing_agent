@@ -1,0 +1,118 @@
+openapi: "3.1.0"
+info:
+  title: Servicing Agent API
+  version: "0.1.0"
+  description: >
+    End-to-End Card Servicing Agent — shared contract between
+    the Next.js frontend and FastAPI backend.
+
+servers:
+  - url: http://localhost:8000
+    description: Local development
+
+paths:
+  /api/chat:
+    post:
+      operationId: sendChatMessage
+      summary: Send a message to the servicing agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatRequest"
+      responses:
+        "200":
+          description: Agent response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatResponse"
+
+  /api/chat/history:
+    get:
+      operationId: getChatHistory
+      summary: Retrieve chat history for a session
+      parameters:
+        - name: session_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Chat history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ChatMessage"
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required: [session_id, message]
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        message:
+          type: string
+          minLength: 1
+          maxLength: 4096
+
+    ChatResponse:
+      type: object
+      required: [session_id, message, actions]
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        message:
+          $ref: "#/components/schemas/ChatMessage"
+        actions:
+          type: array
+          items:
+            $ref: "#/components/schemas/AgentAction"
+
+    ChatMessage:
+      type: object
+      required: [id, role, content, timestamp]
+      properties:
+        id:
+          type: string
+          format: uuid
+        role:
+          type: string
+          enum: [user, agent, system]
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+
+    AgentAction:
+      type: object
+      required: [type, status]
+      properties:
+        type:
+          type: string
+          enum:
+            - card_lookup
+            - transaction_query
+            - dispute_filed
+            - limit_change
+            - payment_scheduled
+            - verification_required
+        status:
+          type: string
+          enum: [pending, approved, declined, completed]
+        details:
+          type: object
+          additionalProperties: true

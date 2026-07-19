@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * ─── CSS Custom Properties (Design Tokens) ──────────────────────
+ * Mirrors tokens.ts for use in plain CSS / Tailwind @apply.
+ * Prefer Tailwind utility classes; use these for edge cases.
+ */
+:root {
+  /* Brand palette */
+  --color-brand-green: #0B3D2E;
+  --color-brand-cream: #F7F5EF;
+  --color-brand-gold: #C9A44C;
+
+  /* Semantic */
+  --color-success: #2E8B67;
+  --color-warning: #C9A44C;
+  --color-error: #C44D4D;
+  --color-info: #4A90A4;
+
+  /* Surfaces */
+  --surface-primary: var(--color-brand-cream);
+  --surface-card: #FFFFFF;
+  --surface-chat: #FDFCFA;
+  --surface-elevated: #FFFFFF;
+
+  /* Text */
+  --text-primary: var(--color-brand-green);
+  --text-secondary: #585550;
+  --text-muted: #A09D94;
+  --text-inverse: var(--color-brand-cream);
+
+  /* Shadows */
+  --shadow-card: 0 4px 24px rgba(11, 61, 46, 0.08);
+  --shadow-card-hover: 0 8px 40px rgba(11, 61, 46, 0.12);
+  --shadow-chat-bubble: 0 2px 8px rgba(11, 61, 46, 0.06);
+  --shadow-gold-glow: 0 0 24px rgba(201, 164, 76, 0.3);
+
+  /* Radii */
+  --radius-card: 1rem;
+  --radius-chat: 1.25rem;
+  --radius-button: 0.625rem;
+  --radius-pill: 9999px;
+
+  /* Layout */
+  --max-width-container: 1200px;
+  --max-width-chat: 720px;
+}
+
+/*
+ * ─── Base Resets ────────────────────────────────────────────────
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-brand-cream-200 text-brand-green font-sans text-body;
+  margin: 0;
+  min-height: 100dvh;
+}
+
+/*
+ * ─── Typography Utilities ───────────────────────────────────────
+ */
+.heading-serif {
+  @apply font-serif font-bold tracking-tight;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #C9A44C 0%, #DBBF65 50%, #C9A44C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/*
+ * ─── Scrollbar Styling ──────────────────────────────────────────
+ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(11, 61, 46, 0.15);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(11, 61, 46, 0.25);
+}
+
+/*
+ * ─── Focus Styles ───────────────────────────────────────────────
+ */
+:focus-visible {
+  outline: 2px solid var(--color-brand-gold);
+  outline-offset: 2px;
+}
+
+/*
+ * ─── Selection ──────────────────────────────────────────────────
+ */
+::selection {
+  background: rgba(201, 164, 76, 0.25);
+  color: var(--color-brand-green);
+}

@@ -1,0 +1,100 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "description": "Deterministic policy thresholds per intent. NOT LLM-evaluated — pure rule checks."
+  },
+
+  "global": {
+    "min_confidence": 0.7,
+    "max_escalation_retries": 1,
+    "require_card_identification": true
+  },
+
+  "FEE_WAIVER": {
+    "description": "Annual fee waiver eligibility rules",
+    "slots_required": [],
+    "slots_optional": ["card_last_four", "reason"],
+    "eligibility": {
+      "min_account_age_months": 12,
+      "min_loyalty_tier": "silver",
+      "max_waivers_per_year": 1,
+      "annual_spend_minimum_usd": 3000
+    },
+    "auto_approve": {
+      "loyalty_tiers": ["platinum", "gold"],
+      "min_account_age_months": 24
+    },
+    "response_templates": {
+      "approved": "Great news! Your annual fee of ${fee_amount} has been waived for this billing cycle. This will reflect on your next statement.",
+      "denied_age": "I'm sorry, fee waivers require at least 12 months of account history. Your account has been open for {account_age_months} months.",
+      "denied_tier": "Fee waivers are available for Silver tier and above. Your current tier is {loyalty_tier}. Would you like to learn how to upgrade?",
+      "denied_limit": "You've already received a fee waiver this year. The next eligible date is {next_eligible_date}.",
+      "denied_spend": "Fee waivers require minimum annual spending of $3,000. Your current annual spend is ${annual_spend}.",
+      "collecting_slots": "I'd be happy to help with a fee waiver. Could you provide the last four digits of your card?",
+      "escalated": "I'll connect you with a specialist who can review your fee waiver request in more detail."
+    }
+  },
+
+  "LIMIT_INCREASE": {
+    "description": "Credit limit increase eligibility rules",
+    "slots_required": [],
+    "slots_optional": ["card_last_four", "amount"],
+    "eligibility": {
+      "min_account_age_months": 6,
+      "max_utilization_percent": 85,
+      "min_on_time_payments_percent": 95,
+      "max_increase_percent": 50,
+      "cooldown_days": 180
+    },
+    "auto_approve": {
+      "max_increase_percent": 20,
+      "min_on_time_payments_percent": 100,
+      "max_utilization_percent": 50
+    },
+    "risk_tiers": {
+      "low":    { "max_increase_percent": 50, "utilization_cap": 40 },
+      "medium": { "max_increase_percent": 30, "utilization_cap": 60 },
+      "high":   { "max_increase_percent": 10, "utilization_cap": 80 }
+    },
+    "response_templates": {
+      "approved": "Your credit limit has been increased from ${current_limit} to ${new_limit}. This is effective immediately.",
+      "denied_age": "Limit increases require at least 6 months of account history. Your account has been open for {account_age_months} months.",
+      "denied_utilization": "Your current utilization is {utilization_percent}%, which exceeds our threshold. We recommend reducing your balance first.",
+      "denied_payments": "Limit increases require at least 95% on-time payments. Your current rate is {on_time_percent}%.",
+      "denied_cooldown": "A limit change was processed recently. You'll be eligible again on {cooldown_end_date}.",
+      "denied_amount": "The requested increase exceeds the maximum allowed ({max_increase_percent}% of current limit). Maximum new limit: ${max_new_limit}.",
+      "collecting_slots": "I can look into a credit limit increase for you. Which card (last four digits) would you like the increase on?",
+      "escalated": "I'll transfer you to our credit team who can review your limit increase request."
+    }
+  },
+
+  "CARD_REPLACEMENT": {
+    "description": "Card replacement issuance rules",
+    "slots_required": [],
+    "slots_optional": ["card_last_four", "reason"],
+    "eligibility": {
+      "max_replacements_per_year": 3,
+      "freeze_on_stolen": true,
+      "offer_digital_card": true
+    },
+    "auto_approve": {
+      "reasons": ["lost", "stolen", "damaged", "expired"]
+    },
+    "response_templates": {
+      "approved": "A replacement card has been ordered. Expected delivery: {delivery_estimate}. Your card ending in {card_last_four} has been deactivated for security.",
+      "approved_stolen": "Your card has been frozen immediately and a replacement has been ordered. Expected delivery: {delivery_estimate}. A temporary digital card is available in your app.",
+      "denied_limit": "You've reached the maximum of {max_replacements} card replacements this year. Please contact us for assistance.",
+      "collecting_slots": "I'm sorry to hear about your card. Could you confirm the last four digits of the affected card?",
+      "escalated": "I'll connect you with our card services team for further assistance with your replacement."
+    }
+  },
+
+  "ESCALATE": {
+    "description": "Fallback when intent is unclear or user requests human agent",
+    "response_templates": {
+      "default": "I understand you'd like additional assistance. Let me connect you with a specialist. Your conversation history will be transferred.",
+      "low_confidence": "I'm not entirely sure I understood your request correctly. Let me connect you with a specialist who can help.",
+      "chain_break": "I encountered an issue processing your request at the {failed_node} step. Transferring you to a specialist for manual review."
+    }
+  }
+}
